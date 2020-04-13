@@ -51,7 +51,6 @@ INITIALIZATION.
 AT SELECTION-SCREEN OUTPUT.
   CASE abap_true.
     WHEN r1.
-      go_screen_carr->set_value( iv_field = 'SO_CARR-LOW' iv_value = 'AA' ).
       go_screen_carr->show( ).
     WHEN r2.
       go_screen_conn->show( ).
