@@ -179,13 +179,21 @@ CLASS lcl_sel_screen IMPLEMENTATION.
   ENDMETHOD.                    "enable_options
 
   METHOD set_input.
-    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name CP |*{ iv_field }*|.
+    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name    CP |*{ iv_field }*| OR
+                                                                group1  = iv_field          OR
+                                                                group2  = iv_field          OR
+                                                                group3  = iv_field          OR
+                                                                group4  = iv_field.
       <ls_screen>-input = COND #( WHEN iv_state = abap_true THEN 1 ELSE 0 ).
     ENDLOOP.
   ENDMETHOD.                    "set_input
 
   METHOD set_active.
-    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name CP |*{ iv_field }*|.
+    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name    CP |*{ iv_field }*| OR
+                                                                group1  = iv_field          OR
+                                                                group2  = iv_field          OR
+                                                                group3  = iv_field          OR
+                                                                group4  = iv_field.
       <ls_screen>-active = COND #( WHEN iv_state = abap_true THEN 1 ELSE 0 ).
     ENDLOOP.
   ENDMETHOD.
@@ -195,13 +203,21 @@ CLASS lcl_sel_screen IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD set_invisible.
-    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name CP |*{ iv_field }*|.
+    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name    CP |*{ iv_field }*| OR
+                                                                group1  = iv_field          OR
+                                                                group2  = iv_field          OR
+                                                                group3  = iv_field          OR
+                                                                group4  = iv_field.
       <ls_screen>-invisible = COND #( WHEN iv_state = abap_true THEN 1 ELSE 0 ).
     ENDLOOP.
   ENDMETHOD.                    "set_invisible
 
   METHOD set_output.
-    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name CP |*{ iv_field }*|.
+    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name    CP |*{ iv_field }*| OR
+                                                                group1  = iv_field          OR
+                                                                group2  = iv_field          OR
+                                                                group3  = iv_field          OR
+                                                                group4  = iv_field.
       <ls_screen>-output = COND #( WHEN iv_state = abap_true THEN 1 ELSE 0 ).
     ENDLOOP.
   ENDMETHOD.                    "set_output
@@ -228,7 +244,11 @@ CLASS lcl_sel_screen IMPLEMENTATION.
   ENDMETHOD.                    "set_text
 
   METHOD set_required.
-    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name CP |*{ iv_field }*|.
+    LOOP AT mt_screen ASSIGNING FIELD-SYMBOL(<ls_screen>) WHERE name    CP |*{ iv_field }*| OR
+                                                                group1  = iv_field          OR
+                                                                group2  = iv_field          OR
+                                                                group3  = iv_field          OR
+                                                                group4  = iv_field.
       <ls_screen>-required = COND #( WHEN iv_state = abap_true THEN 1 ELSE 0 ).
     ENDLOOP.
   ENDMETHOD.                    "set_required
