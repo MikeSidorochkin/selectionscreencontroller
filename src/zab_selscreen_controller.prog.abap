@@ -10,12 +10,6 @@ SELECTION-SCREEN FUNCTION KEY 5.
 
 CLASS lcl_sel_screen DEFINITION FINAL CREATE PUBLIC .
   PUBLIC SECTION.
-    CONSTANTS:
-      BEGIN OF gc_kind,
-        parameter     TYPE c VALUE 'P',
-        select_option TYPE c VALUE 'S',
-      END OF gc_kind.
-
     METHODS show.
     METHODS constructor .
     METHODS set_input
@@ -142,28 +136,9 @@ CLASS lcl_sel_screen IMPLEMENTATION.
     SPLIT iv_options AT space INTO TABLE DATA(lt_options).
 
     LOOP AT lt_options ASSIGNING FIELD-SYMBOL(<lv_option>).
-      CASE <lv_option>.
-        WHEN 'BT'.
-          ls_option_list-options-bt = abap_true.
-        WHEN 'CP'.
-          ls_option_list-options-cp = abap_true.
-        WHEN 'EQ'.
-          ls_option_list-options-eq = abap_true.
-        WHEN 'GE'.
-          ls_option_list-options-ge = abap_true.
-        WHEN 'GT'.
-          ls_option_list-options-gt = abap_true.
-        WHEN 'LE'.
-          ls_option_list-options-le = abap_true.
-        WHEN 'LT'.
-          ls_option_list-options-lt = abap_true.
-        WHEN 'NB'.
-          ls_option_list-options-nb = abap_true.
-        WHEN 'NE'.
-          ls_option_list-options-ne = abap_true.
-        WHEN 'NP'.
-          ls_option_list-options-np = abap_true.
-      ENDCASE.
+      ASSIGN COMPONENT <lv_option> OF STRUCTURE ls_option_list-options TO FIELD-SYMBOL(<lv_option_val>).
+      CHECK sy-subrc = 0.
+      <lv_option_val> = abap_true.
     ENDLOOP.
 
     ls_option_list-name = mv_key_index.
@@ -267,7 +242,7 @@ CLASS lcl_sel_screen IMPLEMENTATION.
         program     = sy-cprog
         restriction = ms_restrict
       EXCEPTIONS
-        OTHERS      = 99.
+        OTHERS      = 0.
 
     CALL FUNCTION 'SELECTION_TEXTS_MODIFY'
       EXPORTING
@@ -275,7 +250,7 @@ CLASS lcl_sel_screen IMPLEMENTATION.
       TABLES
         seltexts = mt_texts
       EXCEPTIONS
-        OTHERS   = 99.
+        OTHERS   = 0.
 
     CALL FUNCTION 'RS_SET_SELSCREEN_STATUS'
       EXPORTING
