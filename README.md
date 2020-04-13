@@ -1,2 +1,1 @@
-# selectionscreencontroller
-Selection screen controller
+# Selection screen controller
