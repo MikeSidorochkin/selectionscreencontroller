@@ -57,6 +57,11 @@ CLASS lcl_sel_screen DEFINITION FINAL CREATE PUBLIC .
         iv_field TYPE string
         iv_value TYPE string.
 
+    CLASS-METHODS get_value
+      IMPORTING
+        iv_field TYPE string
+      RETURNING VALUE(rv_value) TYPE string.
+
     METHODS set_btn
       IMPORTING
         iv_id   TYPE i
@@ -97,6 +102,26 @@ CLASS lcl_sel_screen IMPLEMENTATION.
     mt_buttons[ iv_id ] = VALUE #( icon_text  = iv_text
                                    icon_id    = iv_icon
                                    quickinfo  = iv_info ).
+  ENDMETHOD.
+
+  METHOD get_value.
+    DATA:
+      lt_dynpfields TYPE dynpread_tabtype.
+
+    CALL FUNCTION 'DYNP_VALUES_READ'
+      EXPORTING
+        dyname     = sy-repid
+        dynumb     = sy-dynnr
+        request    = 'A'
+      TABLES
+        dynpfields = lt_dynpfields
+      EXCEPTIONS
+        OTHERS     = 0.
+
+    ASSIGN lt_dynpfields[ fieldname = iv_field ] TO FIELD-SYMBOL(<ls_field_to_change>).
+    CHECK sy-subrc = 0.
+
+    rv_value = <ls_field_to_change>-fieldvalue.
   ENDMETHOD.
 
   METHOD set_value.
